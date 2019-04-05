@@ -13,7 +13,7 @@ $(document).ready(function () {
         event.preventDefault();
         $.ajax({
             method: 'POST',
-            url: 'http://localhost:5000/users/signin',
+            url: 'http://localhost:3000/users/signin',
             data: {
                 email: $('#emailLogin').val(),
                 password: $('#passwordLogin').val()
@@ -22,6 +22,10 @@ $(document).ready(function () {
             .done(uLogin => {
                 console.log('signin')
                 console.log(uLogin)
+                localStorage.setItem('token', uLogin.token)
+                $('#loginForm').hide()
+                $('#registerForm').hide()
+                $('#googleOut').show()
                 // $('#name').val('')
                 // $('#myRepo').append(`<li>${newRepo.full_name}</li>`)
             })
@@ -34,7 +38,7 @@ $(document).ready(function () {
         event.preventDefault();
         $.ajax({
             method: 'POST',
-            url: 'http://localhost:5000/users/signup',
+            url: 'http://localhost:3000/users/signup',
             data: {
                 email: $('#emailRegister').val(),
                 password: $('#passwordRegister').val()
@@ -77,31 +81,36 @@ function onSignIn(googleUser) {
     //     console.log('Signed in as: ' + xhr.responseText);
     // };
     // xhr.send('idtoken=' + id_token);
-    $.ajax({
-        url: 'http://localhost:5000/users/googlesignin',
-        method: 'POST',
-        data: {
-            idToken: id_token
-        }
-    })
-        .done(function (data) {
-            console.log('masuk ke done========================')
-            let html = ''
-            console.log('ini token')
-            console.log(data)
-            localStorage.setItem('token', data.token)
-            // $('.classTodo').show()
-            // $('.addTodo').show()
-            // $('.updateTodo').show()
-            // $('.user').hide()
-            // $('.logout').show()
-            // $('.google').hide()
-            // $('#updateTodo').hide()
+    if (!localStorage.getItem('token')) {
+        $.ajax({
+            url: 'http://localhost:3000/users/googlesignin',
+            method: 'POST',
+            data: {
+                idToken: id_token
+            }
         })
-        .fail(function (err) {
-            console.log(err)
-            console.log(err.response)
-        })
+            .done(function (data) {
+                console.log('masuk ke done========================')
+                let html = ''
+                console.log('ini token')
+                console.log(data)
+                localStorage.setItem('token', data.token)
+                $('#loginForm').hide()
+                $('#registerForm').hide()
+                $('#googleOut').show()
+                // $('.classTodo').show()
+                // $('.addTodo').show()
+                // $('.updateTodo').show()
+                // $('.user').hide()
+                // $('.logout').show()
+                // $('.google').hide()
+                // $('#updateTodo').hide()
+            })
+            .fail(function (err) {
+                console.log(err)
+                console.log(err.response)
+            })
+    }
 }
 
 function signOut() {
@@ -110,6 +119,9 @@ function signOut() {
         console.log('User signed out.');
         console.log(localStorage.getItem('token'))
         // localStorage.removeItem('token')
+        $('#loginForm').show()
+        $('#registerForm').hide()
+        $('#googleOut').hide()
         localStorage.clear()
     });
 }
