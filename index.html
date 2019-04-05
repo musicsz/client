@@ -20,13 +20,15 @@
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="col-sm-6">
-            <h2>Logo</h2>
+            <h1><i class="fab fa-spotify"></i> Musicsz</h1>
         </div>
         <div class="col-sm-6">
             <div id="googleOut">
@@ -83,17 +85,30 @@
         </div>
     </div>
   
-    <form class="text-center" onsubmit="youtubeEmbeed()">
-      <label for="inputTitle">Enter song title</label>
-      <div class="form-group w-25 d-flex align-items-center container">
-        <input type="text" class="form-control" id="inputTitle" placeholder="Enter title..." autocomplete="off">
-        <button type="submit" class="btn btn-primary">Submit</button>
+<div id="main" class="container">
+    <form class="text-center" onsubmit="searchSong()" method="GET">
+        <label for="testTitle">Search Your Music Here</label>
+        <div class="form-group w-25 d-flex align-items-center container">
+          <input type="text" class="form-control" id="testTitle" placeholder="search here..." autocomplete="off">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+    
+      <div id="list" class="container">
+        <div class="card-group container" id="list-song"></div>
       </div>
-  </form>
-
-  <div class="text-center" id="vid"></div>
+      <div class="text-center container" id="detailVideo">
+          <div id="vid"></div>
+          <div id="detailAlbum" class="container text-center"></div>
+          <div id="detailSong"></div>
+      </div>
+</div>
+    
+    
     <script src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/postscribe/2.0.8/postscribe.min.js"></script>
+
     <script src="./main.js"></script>
 </body>
 
