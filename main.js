@@ -11,10 +11,11 @@ $(document).ready(function () {
         $('#main').hide()
     }
     $('#login-form').submit(function () {
+        console.log('masuk ke login')
         event.preventDefault();
         $.ajax({
                 method: 'POST',
-                url: 'http://localhost:5000/users/signin',
+                url: 'http://localhost:3000/users/signin',
                 data: {
                     email: $('#emailLogin').val(),
                     password: $('#passwordLogin').val()
@@ -47,7 +48,7 @@ $(document).ready(function () {
         event.preventDefault();
         $.ajax({
                 method: 'POST',
-                url: 'http://localhost:5000/users/signup',
+                url: 'http://localhost:3000/users/signup',
                 data: {
                     email: $('#emailRegister').val(),
                     password: $('#passwordRegister').val()
@@ -73,6 +74,11 @@ function changeToRegister() {
     console.log('masuk ke hide')
     $('#loginForm').hide()
     $('#registerForm').show()
+}
+
+function changetoLogin() {
+    $('#loginForm').show()
+    $('#registerForm').hide()
 }
 
 function onSignIn(googleUser) {
@@ -163,7 +169,7 @@ function searchSong() {
                 <div class="card-body">
                 <h5 class="card-title">${song.result.title}</h5>
                 <p class="card-text">${song.result.primary_artist.name}</p>
-                <a href="#" onclick="getSong('${song.result.api_path.slice(1)}')" class="btn btn-primary">Go somewhere</a>
+                <a href="#" onclick="getSong('${song.result.api_path.slice(1)}')" class="btn btn-primary">Details</a>
                 </div>
             </div>
             </div>
